@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/Diaahmed201244/drd-connect.git/static/css/main.fecf949f.css",
+    "main.js": "/Diaahmed201244/drd-connect.git/static/js/main.6fad3190.js",
+    "static/media/logo.svg": "/Diaahmed201244/drd-connect.git/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/Diaahmed201244/drd-connect.git/index.html",
+    "main.fecf949f.css.map": "/Diaahmed201244/drd-connect.git/static/css/main.fecf949f.css.map",
+    "main.6fad3190.js.map": "/Diaahmed201244/drd-connect.git/static/js/main.6fad3190.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fecf949f.css",
+    "static/js/main.6fad3190.js"
+  ]
+}
