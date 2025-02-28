@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/drd-connect/static/css/main.fecf949f.css",
+    "main.js": "/drd-connect/static/js/main.a0d2d84f.js",
+    "static/media/logo.svg": "/drd-connect/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/drd-connect/index.html",
+    "main.fecf949f.css.map": "/drd-connect/static/css/main.fecf949f.css.map",
+    "main.a0d2d84f.js.map": "/drd-connect/static/js/main.a0d2d84f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fecf949f.css",
+    "static/js/main.a0d2d84f.js"
+  ]
+}
