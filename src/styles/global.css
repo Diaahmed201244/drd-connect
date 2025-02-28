@@ -1,0 +1,525 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Disable Zooming on Mobile Devices */
+  html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  
+  /* Fixed Layout */
+  body {
+    width: 1200px; /* Fixed width */
+    margin: 0 auto; /* Center the layout */
+    font-family: 'Digital-7', 'Courier New', monospace;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  /* Hide YouTube controls */
+  .ytp-chrome-bottom, .ytp-progress-bar-container {
+    display: none !important;
+  }
+  
+  /* Theatre mode styles */
+  .theatre-mode {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 1000;
+  }
+  
+  .theatre-mode iframe {
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Counter and subscription button in theatre mode */
+  .theatre-mode-active #counter-container {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1001;
+    font-size: 24px; /* Fixed font size */
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+  }
+  
+  /* Overlay to prevent touch events */
+  .touch-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1001;
+    background: transparent;
+  }
+  
+  #control-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  /* Subscribe Button Styles with Spark Effect */
+  #extra-code-bar {
+    margin-top: 10px;
+    font-size: 16px; /* Fixed font size */
+    color: whitesmoke;
+    background-color: rgba(247, 242, 242, 0.123);
+    padding: 9px;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.5s, box-shadow 0.5s;
+    word-break: break-all;
+    width: 100%;
+  }
+  
+  #extra-code-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.4) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    animation: spark 1.5s linear infinite;
+    transform: skewX(-20deg);
+  }
+  
+  #extra-code-bar:hover {
+    transform: scale(1.1);
+  }
+  
+  .extra-mode #extra-code-bar {
+    display: block;
+  }
+  
+  .extra-mode #code-display {
+    display: none;
+  }
+  
+  /* Sound button styles */
+  #sound-button {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(247, 242, 242, 0.075);
+    color: rgba(247, 242, 242, 0.075);
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 20px;
+    backdrop-filter: blur(3px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1002;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+  }
+  
+  #counter-container {
+    padding-top: 30px;
+    position: relative;
+  }
+  
+  #sound-button:hover {
+    background-color: rgba(9, 10, 8, 0.8);
+  }
+  
+  /* Copy and Toggle Button Styles */
+  #extra-button, #toggle-button {
+    position: absolute;
+    background-color: rgba(247, 242, 242, 0.075);
+    color: white;
+    border: none;
+    padding: 5px 12px;
+    margin-top: 50px;
+    margin-bottom: 0px;
+    font-size: 16px;
+    font-family: 'Digital-7', 'Courier New', monospace;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 1002;
+  }
+  
+  #extra-button {
+    bottom: 2px;
+    left: 5px;
+  }
+  
+  #toggle-button {
+    bottom: 2px;
+    right: 5px;
+  }
+  
+  #toggle-button:hover {
+    animation: a 0.5s 1 linear;
+  }
+  
+  @keyframes a {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+  }
+  
+  /* Counter Container Styles */
+  #counter-container {
+    position: fixed;
+    bottom: 20px; /* Position at the bottom */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust for exact center */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Space between elements */
+    background-color: rgba(247, 242, 242, 0.075); /* Semi-transparent background */
+    padding: 10px;
+    border-radius: 10px;
+    z-index: 1000; /* Ensure it's above other elements */
+    width: auto; /* Auto width based on content */
+    max-width: 90%; /* Prevent it from overflowing on small screens */
+  }
+  
+  /* Play/Pause Button Styles */
+    #play-pause-button {
+        position: fixed;
+        bottom: 15px; /* Position above the counter container */
+        left: 50%; /* Center horizontally */
+        transform: translateX(-50%); /* Adjust for exact center */
+        background-color: rgba(247, 242, 242, 0.075); /* Semi-transparent background */
+        color: rgba(247, 242, 242, 0.075);
+        border: none; /* Remove default border */
+        padding: 10px 20px;
+        border-radius: 50%; /* Circular button */
+        cursor: pointer;
+        z-index: 1001; /* Ensure it's above the counter container */
+        width: 60px; /* Fixed width */
+        height: 60px; /* Fixed height */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px; /* Icon size */
+        outline: none; /* Remove focus outline */
+        box-shadow: none; /* Remove any box shadow */
+    }
+  
+    /* Remove any default browser styles */
+    #play-pause-button:focus,
+    #play-pause-button:active,
+    #play-pause-button:hover {
+        outline: none; /* Remove focus outline */
+        border: none; /* Remove border */
+        background-color: rgba(247, 242, 242, 0.075); /* Maintain background color */
+    }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 600px) {
+    #counter-container {
+        bottom: 10px; /* Move slightly higher on small screens */
+        padding: 8px; /* Reduce padding */
+        gap: 8px; /* Reduce gap between elements */
+    }
+  
+    #play-pause-button {
+        bottom: 70px; /* Adjust position for small screens */
+        width: 50px; /* Smaller button */
+        height: 50px; /* Smaller button */
+        font-size: 20px; /* Smaller icon */
+    }
+  }
+    
+  /* Code display */
+  #code-display {
+    margin-top: 10px;
+    font-size: 16px; /* Fixed font size */
+    color: #00ff00;
+    font-family: 'Courier New';
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.5s, box-shadow 0.5s;
+    word-break: break-all;
+  }
+  
+  /* Spark beam effect */
+  #code-display::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
+    animation: spark 1s linear infinite;
+  }
+  
+  
+  
+  
+  #counter {
+    position: relative;
+    display: inline-block;
+    font-size: 0.7em; /* Reduced from 0.6em */
+    background: rgba(20, 20, 30, 0.95);
+    padding: 1px 2px; /* Reduced from 6px 10px */
+    border-radius: 12px; /* Slightly smaller radius */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 10px rgba(0, 150, 255, 0.2); /* Reduced shadow spread */
+    backdrop-filter: blur(2px);
+    transform: translateZ(0);
+  }
+  
+  #counter span {
+    position: relative;
+    display: inline-block;
+    margin: 0 1px; /* Reduced from 0 3px */
+    color: #e0f4ff;
+    font-weight: 500; /* Slightly lighter weight */
+    text-shadow: 0 0 5px rgba(100, 200, 255, 0.4);
+    animation: digitPulse 1.6s ease-in-out infinite;
+    overflow: hidden;
+    padding: 2px 3px; /* Reduced from 4px 6px */
+    background: linear-gradient(45deg, 
+        rgba(50, 100, 150, 0.25) 0%, 
+        rgba(20, 40, 60, 0.25) 100%);
+    border-radius: 1px; /* Smaller radius */
+    border: 0.5px solid rgba(100, 200, 255, 0.1); /* Thinner border */
+    transform-style: preserve-3d;
+    will-change: transform, text-shadow;
+  }
+  
+  @keyframes digitPulse {
+    0%, 100% {
+        text-shadow: 0 0 15px rgba(100, 200, 255, 0.4),
+                    0 0 30px rgba(50, 150, 255, 0.2);
+        transform: scale(1);
+    }
+    50% {
+        text-shadow: 0 0 25px rgba(100, 220, 255, 0.8),
+                    0 0 45px rgba(50, 180, 255, 0.6),
+                    0 0 60px rgba(0, 150, 255, 0.3);
+        transform: scale(1.03);
+    }
+  }
+  
+  #counter span::before,
+  #counter span::after {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    background: radial-gradient(circle at center, 
+        rgba(255, 255, 255, 0.8) 0%, 
+        rgba(255, 255, 255, 0) 70%);
+    opacity: 0;
+    animation: quantumSpark 1.2s linear infinite;
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+  
+  #counter span::before {
+    top: -25%;
+    left: -25%;
+    animation-delay: 0.3s;
+  }
+  
+  #counter span::after {
+    top: 35%;
+    left: 35%;
+    animation-delay: 0.7s;
+  }
+  
+  @keyframes quantumSpark {
+    0% {
+        opacity: 0;
+        transform: scale(0) translate(-50%, -50%);
+    }
+    20% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(2.5) translate(50%, 50%);
+    }
+  }
+  
+  /* Modern Shine Effect */
+  #counter span::selection {
+    background: transparent;
+  }
+  
+  #counter span .shine {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg,
+        rgba(255, 255, 255, 0) 45%,
+        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0) 55%);
+    animation: shineSweep 4s linear infinite;
+  }
+  
+  @keyframes shineSweep {
+    0% {
+        transform: translateX(-100%) rotate(25deg);
+    }
+    100% {
+        transform: translateX(100%) rotate(25deg);
+    }
+  }
+        
+  
+  /* You might want to adjust the width of the #code-display */
+  #code-display {
+    width: 100%; /* Or a specific width like 250px */
+    min-width: 250px; /* Minimum width */
+  }
+  
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1004; /* Ensure it's on top */
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .modal-buttons {
+    margin-top: 20px;
+  }
+  
+  @keyframes spark {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+  }
+  
+  
+  /* Laser beam styles */
+  .laser-beam {
+    position: fixed;
+    bottom: 100px;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: repeating-linear-gradient(
+        90deg,
+        red 0,
+        red 10px,
+        transparent 50px,
+        transparent 100px
+    );
+    z-index: 1003;
+    animation: laser 0.5s linear infinite;
+    box-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red, 0 0 40px red;
+  }
+  
+  @keyframes laser {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+  }
+  
+  /* Golden shiny effect for code display */
+  .silver {
+    background-color: rgb(252, 251, 245);
+    box-shadow: 0 0 10px rgb(180, 180, 179), 0 0 20px rgb(180, 180, 179), 0 0 30px rgb(180, 180, 179), 0 0 40px rgb(180, 180, 179);
+  }
+  
+  /* Progress bar styles */
+  #progress-bar {
+    width: 0;
+    height: 5px;
+    background-color: #00ff00;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
+  
+  /* News ticker styles */
+  .news-ticker {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(247, 242, 242, 0.075);
+    color: #fff;
+    padding: 5px 0;
+    font-size: 14px;
+    line-height: 1.6;
+    box-sizing: border-box;
+    z-index: 9999;
+    overflow: hidden;
+    box-shadow: 0 -5px 10px rgba(247, 242, 242, 0.075);
+  }
+  
+  .news-ticker-content {
+    display: inline-block;
+    white-space: nowrap;
+    animation: scroll 30s linear infinite;
+    padding-left: 100%;
+  }
+  
+  @keyframes scroll {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+  }
+  
